@@ -29,6 +29,10 @@ class MoviesService {
     AppState.totalPages = response.data.total_pages
 
   }
+
+  async searchMovies(searchQuery) {
+
+  }
 }
 
 export const moviesService = new MoviesService()

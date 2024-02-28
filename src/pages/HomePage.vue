@@ -6,10 +6,10 @@
       </div>
 
       <div class="col-12">
-        <form @submit.prevent="">
+        <form @submit.prevent="searchMovies()">
           <div class="input-group mb-3">
-            <input required type="text" class="form-control" placeholder="Movie Title" aria-label="Title of movie"
-              aria-describedby="button-addon2">
+            <input v-model="editableSearchQuery" required type="text" class="form-control" placeholder="Movie Title"
+              aria-label="Title of movie" aria-describedby="button-addon2">
             <button class="btn btn-outline-secondary" type="submit" id="button-addon2">
               Search <i class="mdi mdi-magnify"></i>
             </button>
@@ -40,15 +40,20 @@
 </template>
 
 <script>
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import Pop from '../utils/Pop.js';
 import { moviesService } from '../services/MoviesService.js'
 import { AppState } from '../AppState.js'
 import MoviePoster from '../components/MoviePoster.vue';
 import ModalComponent from '../components/ModalComponent.vue';
+import { logger } from '../utils/Logger.js';
 
 export default {
   setup() {
+    const editableSearchQuery = ref('')
+
+
+
     async function getMovies() {
       try {
         await moviesService.getMovies();
@@ -61,6 +66,7 @@ export default {
       getMovies();
     });
     return {
+      editableSearchQuery,
       movies: computed(() => AppState.movies),
       currentPage: computed(() => AppState.currentPage),
       totalPages: computed(() => AppState.totalPages),
@@ -68,6 +74,15 @@ export default {
       async changePage(pageNumber) {
         try {
           await moviesService.changePage(pageNumber)
+        } catch (error) {
+          Pop.error(error)
+        }
+      },
+
+      async searchMovies() {
+        try {
+          logger.log('searching for:', editableSearchQuery.value)
+          await moviesService.searchMovies(editableSearchQuery.value)
         } catch (error) {
           Pop.error(error)
         }
