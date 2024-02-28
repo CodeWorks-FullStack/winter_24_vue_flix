@@ -12,6 +12,8 @@
       </div>
     </section>
   </div>
+
+  <ModalComponent />
 </template>
 
 <script>
