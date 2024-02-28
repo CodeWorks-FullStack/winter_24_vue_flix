@@ -4,6 +4,19 @@
       <div class="col-12">
         <h1>Movies</h1>
       </div>
+
+      <div class="col-12">
+        <form @submit.prevent="">
+          <div class="input-group mb-3">
+            <input required type="text" class="form-control" placeholder="Movie Title" aria-label="Title of movie"
+              aria-describedby="button-addon2">
+            <button class="btn btn-outline-secondary" type="submit" id="button-addon2">
+              Search <i class="mdi mdi-magnify"></i>
+            </button>
+          </div>
+        </form>
+      </div>
+
       <div class="col-12 d-flex align-items-center my-2">
         <button @click="changePage(currentPage - 1)" class="btn btn-outline-dark" :disabled="currentPage == 1">
           Previous
