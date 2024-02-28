@@ -7,8 +7,8 @@
     </div>
 
     <section class="row">
-      <div v-for="movie in movies" :key="movie.id" class="col-md-4">
-        Test
+      <div v-for="movie in movies" :key="movie.id" class="col-md-3 mb-3">
+        <img :src="movie.posterImgUrl" :alt="movie.title" :title="movie.title" class="img-fluid rounded">
       </div>
     </section>
   </div>
