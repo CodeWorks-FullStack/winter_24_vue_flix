@@ -1,5 +1,6 @@
 <template>
-  <img :src="movie.lowQualityPosterImgUrl" :alt="movie.title" :title="movie.title" class="img-fluid rounded">
+  <img :src="movie.lowQualityPosterImgUrl" :alt="movie.title" :title="movie.title" class="img-fluid rounded"
+    data-bs-toggle="modal" data-bs-target="#movieModal">
 </template>
 
 
