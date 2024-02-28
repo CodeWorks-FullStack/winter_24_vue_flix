@@ -17,6 +17,11 @@
         </form>
       </div>
 
+      <div v-if="savedSearch" class="col-12 d-flex align-items-center">
+        <p class="fs-3">Showing results for "{{ savedSearch }}"</p>
+        <button class="btn btn-danger ms-3" @click="clearSearch()">Clear Search</button>
+      </div>
+
       <div class="col-12 d-flex align-items-center my-2">
         <button @click="changePage(currentPage - 1)" class="btn btn-outline-dark" :disabled="currentPage == 1">
           Previous
@@ -52,8 +57,6 @@ export default {
   setup() {
     const editableSearchQuery = ref('')
 
-
-
     async function getMovies() {
       try {
         await moviesService.getMovies();
@@ -70,6 +73,7 @@ export default {
       movies: computed(() => AppState.movies),
       currentPage: computed(() => AppState.currentPage),
       totalPages: computed(() => AppState.totalPages),
+      savedSearch: computed(() => AppState.searchQuery),
 
       async changePage(pageNumber) {
         try {
@@ -88,6 +92,16 @@ export default {
         try {
           logger.log('searching for:', editableSearchQuery.value)
           await moviesService.searchMovies(editableSearchQuery.value)
+        } catch (error) {
+          Pop.error(error)
+        }
+      },
+
+      async clearSearch() {
+        try {
+          editableSearchQuery.value = ''
+          moviesService.clearSearch()
+          await getMovies()
         } catch (error) {
           Pop.error(error)
         }

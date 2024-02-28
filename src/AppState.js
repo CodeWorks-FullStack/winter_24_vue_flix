@@ -12,5 +12,6 @@ export const AppState = reactive({
   activeMovie: null,
 
   currentPage: 0,
-  totalPages: 0
+  totalPages: 0,
+  searchQuery: ''
 })

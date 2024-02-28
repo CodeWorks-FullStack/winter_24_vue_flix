@@ -35,6 +35,7 @@ class MoviesService {
   async searchMovies(searchQuery) {
     const response = await movieApi.get(`search/movie?query=${searchQuery}`)
     logger.log('SEARCHING MOVIES', response.data)
+    AppState.searchQuery = searchQuery
     _handleMovieResponse(response)
   }
 
@@ -43,9 +44,13 @@ class MoviesService {
 
     const response = await movieApi.get(`search/movie?query=${searchQuery}&page=${pageNumber}`)
     logger.log('CHANGING PAGE AND SEARCHING', response.data)
+    AppState.searchQuery = searchQuery
     _handleMovieResponse(response)
   }
 
+  clearSearch() {
+    AppState.searchQuery = ''
+  }
 
 }
 
