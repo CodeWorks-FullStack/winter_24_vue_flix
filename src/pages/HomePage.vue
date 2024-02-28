@@ -5,9 +5,14 @@
         <h1>Movies</h1>
       </div>
       <div class="col-12 d-flex align-items-center my-2">
-        <button class="btn btn-outline-dark">Previous</button>
+        <button @click="changePage(currentPage - 1)" class="btn btn-outline-dark" :disabled="currentPage == 1">
+          Previous
+        </button>
         <p class="mb-0 mx-3 fs-4">Page {{ currentPage }} of {{ totalPages }}</p>
-        <button class="btn btn-outline-dark">Next</button>
+        <button @click="changePage(currentPage + 1)" class="btn btn-outline-dark"
+          :disabled="currentPage == totalPages || currentPage == 500">
+          Next
+        </button>
       </div>
     </div>
 
@@ -45,7 +50,15 @@ export default {
     return {
       movies: computed(() => AppState.movies),
       currentPage: computed(() => AppState.currentPage),
-      totalPages: computed(() => AppState.totalPages)
+      totalPages: computed(() => AppState.totalPages),
+
+      async changePage(pageNumber) {
+        try {
+          await moviesService.changePage(pageNumber)
+        } catch (error) {
+          Pop.error(error)
+        }
+      }
     };
   },
   components: { MoviePoster, ModalComponent }

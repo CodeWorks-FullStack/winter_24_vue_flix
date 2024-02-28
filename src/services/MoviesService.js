@@ -19,6 +19,16 @@ class MoviesService {
     const newMovie = new Movie(response.data)
     AppState.activeMovie = newMovie
   }
+
+  async changePage(pageNumber) {
+    const response = await movieApi.get(`discover/movie?page=${pageNumber}`)
+    logger.log('changing page', response.data)
+    const newMovies = response.data.results.map(moviePOJO => new Movie(moviePOJO))
+    AppState.movies = newMovies
+    AppState.currentPage = response.data.page
+    AppState.totalPages = response.data.total_pages
+
+  }
 }
 
 export const moviesService = new MoviesService()
