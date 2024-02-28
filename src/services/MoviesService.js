@@ -3,6 +3,15 @@ import { Movie } from "../models/Movie.js"
 import { logger } from "../utils/Logger.js"
 import { movieApi } from "./AxiosService.js"
 
+function _handleMovieResponse(response) {
+  const newMovies = response.data.results.map(moviePOJO => new Movie(moviePOJO))
+  AppState.movies = newMovies
+  AppState.currentPage = response.data.page
+  AppState.totalPages = response.data.total_pages
+}
+
+
+
 class MoviesService {
   async getMovies() {
     const response = await movieApi.get('discover/movie')
@@ -31,8 +40,12 @@ class MoviesService {
   }
 
   async searchMovies(searchQuery) {
-
+    const response = await movieApi.get(`search/movie?query=${searchQuery}`)
+    logger.log('SEARCHING MOVIES', response.data)
   }
+
+
 }
 
 export const moviesService = new MoviesService()
+
