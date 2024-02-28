@@ -73,7 +73,12 @@ export default {
 
       async changePage(pageNumber) {
         try {
-          await moviesService.changePage(pageNumber)
+          if (!editableSearchQuery.value) {
+            await moviesService.changePage(pageNumber)
+          }
+          else {
+            await moviesService.changePageWithSearchQuery(editableSearchQuery.value, pageNumber)
+          }
         } catch (error) {
           Pop.error(error)
         }

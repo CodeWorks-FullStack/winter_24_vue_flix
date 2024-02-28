@@ -38,6 +38,14 @@ class MoviesService {
     _handleMovieResponse(response)
   }
 
+  async changePageWithSearchQuery(searchQuery, pageNumber) {
+    logger.log(`Query: ${searchQuery}, page: ${pageNumber}`)
+
+    const response = await movieApi.get(`search/movie?query=${searchQuery}&page=${pageNumber}`)
+    logger.log('CHANGING PAGE AND SEARCHING', response.data)
+    _handleMovieResponse(response)
+  }
+
 
 }
 
