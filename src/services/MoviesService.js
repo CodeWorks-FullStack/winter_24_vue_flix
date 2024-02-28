@@ -9,6 +9,8 @@ class MoviesService {
     logger.log('📡 GOT MOVIES', response.data)
     const newMovies = response.data.results.map(moviePOJO => new Movie(moviePOJO))
     AppState.movies = newMovies
+    AppState.currentPage = response.data.page
+    AppState.totalPages = response.data.total_pages
   }
 
   async getMovieById(movieId) {
