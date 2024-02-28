@@ -22,6 +22,7 @@ import Pop from '../utils/Pop.js';
 import { moviesService } from '../services/MoviesService.js'
 import { AppState } from '../AppState.js'
 import MoviePoster from '../components/MoviePoster.vue';
+import ModalComponent from '../components/ModalComponent.vue';
 
 export default {
   setup() {
@@ -40,7 +41,7 @@ export default {
       movies: computed(() => AppState.movies)
     };
   },
-  components: { MoviePoster }
+  components: { MoviePoster, ModalComponent }
 }
 </script>
 

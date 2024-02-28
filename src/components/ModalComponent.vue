@@ -8,9 +8,22 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-
+          <div class="container-fluid">
+            <section class="row">
+              <div class="col-md-5">
+                <img :src="movie.highQualityBackdropImgUrl" :alt="movie.title" class="img-fluid">
+              </div>
+              <div class="col-md-7">
+                <h1>{{ movie.title }}</h1>
+                <h2>{{ movie.tagline }}</h2>
+                <h3>Budget: {{ movie.budget }} Revenue: {{ movie.revenue }}</h3>
+                <h4 :class="{ 'text-danger': movie.revenue - movie.budget < 0 }">
+                  Income: {{ movie.revenue - movie.budget }}
+                </h4>
+              </div>
+            </section>
+          </div>
         </div>
-
       </div>
     </div>
   </div>
