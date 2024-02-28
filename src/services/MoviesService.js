@@ -10,6 +10,13 @@ class MoviesService {
     const newMovies = response.data.results.map(moviePOJO => new Movie(moviePOJO))
     AppState.movies = newMovies
   }
+
+  async getMovieById(movieId) {
+    const response = await movieApi.get(`movie/${movieId}`)
+    logger.log('📡 GOT MOVIE', response.data)
+    const newMovie = new Movie(response.data)
+    AppState.activeMovie = newMovie
+  }
 }
 
 export const moviesService = new MoviesService()
