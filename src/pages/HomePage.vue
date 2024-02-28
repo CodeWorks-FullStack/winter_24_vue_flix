@@ -1,9 +1,22 @@
-<template></template>
+<template>
+  <div class="container">
+    <div class="section row">
+      <div class="col-12">
+        <h1>Movies</h1>
+      </div>
+    </div>
+
+    <section class="row">
+      {{ movies }}
+    </section>
+  </div>
+</template>
 
 <script>
-import { onMounted } from 'vue';
+import { computed, onMounted } from 'vue';
 import Pop from '../utils/Pop.js';
 import { moviesService } from '../services/MoviesService.js'
+import { AppState } from '../AppState.js'
 
 export default {
   setup() {
@@ -20,7 +33,7 @@ export default {
       getMovies()
     })
     return {
-
+      movies: computed(() => AppState.movies)
     }
   }
 }
