@@ -1,8 +1,10 @@
 export class Movie {
   constructor (data) {
     this.id = data.id
-    this.backdropImgUrl = 'https://image.tmdb.org/t/p/w500' + data.backdrop_path
-    this.posterImgUrl = 'https://image.tmdb.org/t/p/w500' + data.poster_path
+    this.lowQualityBackdropImgUrl = 'https://image.tmdb.org/t/p/w500' + data.backdrop_path
+    this.lowQualityPosterImgUrl = 'https://image.tmdb.org/t/p/w500' + data.poster_path
+    this.highQualityBackdropImgUrl = 'https://image.tmdb.org/t/p/original' + data.backdrop_path
+    this.highQualityPosterImgUrl = 'https://image.tmdb.org/t/p/original' + data.poster_path
     this.originalLanguage = data.original_language
     this.title = data.title
     this.originalTitle = data.original_title
