@@ -16,10 +16,7 @@ class MoviesService {
   async getMovies() {
     const response = await movieApi.get('discover/movie')
     logger.log('📡 GOT MOVIES', response.data)
-    const newMovies = response.data.results.map(moviePOJO => new Movie(moviePOJO))
-    AppState.movies = newMovies
-    AppState.currentPage = response.data.page
-    AppState.totalPages = response.data.total_pages
+    _handleMovieResponse(response)
   }
 
   async getMovieById(movieId) {
@@ -32,16 +29,13 @@ class MoviesService {
   async changePage(pageNumber) {
     const response = await movieApi.get(`discover/movie?page=${pageNumber}`)
     logger.log('changing page', response.data)
-    const newMovies = response.data.results.map(moviePOJO => new Movie(moviePOJO))
-    AppState.movies = newMovies
-    AppState.currentPage = response.data.page
-    AppState.totalPages = response.data.total_pages
-
+    _handleMovieResponse(response)
   }
 
   async searchMovies(searchQuery) {
     const response = await movieApi.get(`search/movie?query=${searchQuery}`)
     logger.log('SEARCHING MOVIES', response.data)
+    _handleMovieResponse(response)
   }
 
 
