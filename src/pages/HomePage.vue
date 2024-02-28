@@ -8,8 +8,7 @@
 
     <section class="row">
       <div v-for="movie in movies" :key="movie.id" class="col-md-3 mb-3">
-        <!-- <img :src="movie.lowQualityPosterImgUrl" :alt="movie.title" :title="movie.title" class="img-fluid rounded"> -->
-        <MoviePoster />
+        <MoviePoster :movie="movie" />
       </div>
     </section>
   </div>
@@ -20,25 +19,26 @@ import { computed, onMounted } from 'vue';
 import Pop from '../utils/Pop.js';
 import { moviesService } from '../services/MoviesService.js'
 import { AppState } from '../AppState.js'
+import MoviePoster from '../components/MoviePoster.vue';
 
 export default {
   setup() {
-
     async function getMovies() {
       try {
-        await moviesService.getMovies()
-      } catch (error) {
-        Pop.error(error)
+        await moviesService.getMovies();
+      }
+      catch (error) {
+        Pop.error(error);
       }
     }
-
     onMounted(() => {
-      getMovies()
-    })
+      getMovies();
+    });
     return {
       movies: computed(() => AppState.movies)
-    }
-  }
+    };
+  },
+  components: { MoviePoster }
 }
 </script>
 
