@@ -1,6 +1,6 @@
 <template>
   <img @click="getMovieById(movie.id)" :src="movie.lowQualityPosterImgUrl" :alt="movie.title" :title="movie.title"
-    class="img-fluid rounded" data-bs-toggle="modal" data-bs-target="#movieModal">
+    class="img-fluid rounded" data-bs-toggle="modal" data-bs-target="#movieModal" role="button">
 </template>
 
 
